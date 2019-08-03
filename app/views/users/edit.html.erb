@@ -1,0 +1,40 @@
+<div class='container'>
+    <br>
+    <br>
+    <form action="/logout" method="post" role="form">
+        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+        <button type="submit">Logout</button>
+    </form>
+    <br>
+    <a href="/info/<%= @user.id %>">Your Info Page</a> |
+    <a href="/show">Main Page</a>
+    <br>
+    <hr>
+    <h3> Edit Your Info page</h3>
+    <br>
+    <p><%= flash[:note] %></p>
+    <div class ="form-group"><form action='/update/<%= @user.id %>' method='post'>
+        <input name="authenticity_token" value= "<%= form_authenticity_token %>" type="hidden">
+        <p><label for="firstname">First Name:</label>
+        <input id="firstname" type="text" name="first_name" value="<%= @user.first_name %>"></p>
+        <p><label for="lastname">Last Name:</label>
+        <input id="lastname" type="text" name="last_name" value="<%= @user.last_name %>"></p>
+        <p><label for="email">Email:</label>
+        <input id="email" type="email" name="email" value="<%= @user.email %>"></p>
+        <p><label for="location">Location:</label>
+        <input id="city" type="city" name="city" placeholder="Your City">
+        <select id= "state" name="state" placeholder="Your State">
+            <option value="CA">CA</option>
+            <option value="WA">WA</option>
+        </select></p>
+
+        <!-- <p><label for="password">Password:</label>
+        <input id="password" type="password" name="password" value="<%= @user.password %>"></p>
+        <p><label for="password_confirmation">Retype Password:</label>
+        <input id="password_confirmation" type="password" name="password_confirmation" value="<%= @user.password %>"></p> -->
+        <button type="submit"> Update!</button>
+        </form>
+    </div>
+    <hr>
+
+</div>

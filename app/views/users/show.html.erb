@@ -1,0 +1,37 @@
+<div class='container'>
+
+<h1> You are logged in! </h1>
+<br><br>
+<a href="/events"> Show all the Events </a>
+<br><br><br><br>
+<div class='table-responsive'>
+    <table class='table'>
+        <tr>
+            <td>First Name </td>
+            <td>Last Name </td>
+            <td>Email </td>
+            <td>City </td>
+            <td>State </td>
+            <td>Action</td>
+        </tr>
+        <% @users.each do |user| %>
+        <tr>
+            <td><%= user.first_name.capitalize %></td>
+            <td><%= user.last_name.capitalize %></td>
+            <td><%= user.email %></td>
+            <td><%= user.city %></td>
+            <td><%= user.state %></td>
+            <td><a href="/info/<%= user.id %>">Show your info</a> |
+                <a href="/edit/<%= user.id %>">Edit</a>
+            </td>
+        </tr>
+        <% end %>
+    </table>
+</div>
+<br><br><br><br>
+<form action="/logout" method="post" role="form">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+    <button type="submit">Logout</button>
+</form>
+
+</div>

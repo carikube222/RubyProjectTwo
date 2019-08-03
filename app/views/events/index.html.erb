@@ -1,0 +1,120 @@
+<div class='container'>
+    <h2>All the Events</h2>
+    <div class='table-responsive'>
+        <table class='table'>
+            <tr>
+                <td>Name </td>
+                <td>Date </td>
+                <td>State </td>
+                <td>Host </td>
+                <td>Action</td>
+            </tr>
+            <% @events.each do |event| %>
+            <tr>
+                <td><%= event.name.capitalize %></td>
+                <td><%= event.date %></td>
+                <td><%= event.state %></td>
+                <td><%= event.user.first_name%></td>
+                <td>
+
+                    <% if @events_attend.exists?(:id => event.id) == false %>
+                        <form action="/event/join/<%= event.id %>" method="post">
+                            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                            <input type="submit" value="Join" class="btn btn-default">
+                        </form>
+                    <% end %>
+                <!-- </td>
+                <td> -->
+                    <% if @events_attend.exists?(:id => event.id) == true %>
+                        <form action="/event/unjoin/<%= event.id %>" method="post">
+                            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                            <input type="submit" value="UnJoin" class="btn btn-default">
+                        </form>
+                    <% end %>
+
+                </td>
+                <td>
+                    <% if event.user == @user %>
+                        <td>
+                        <form action="/bury_secret/<%= event.id %>" method="post">
+                        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                        <input type="submit" value="Bury Secret" class="btn btn-default">
+                        </form>
+                        </td>
+                        <td>
+                        <a href="events/edit/<%= event.id %>">Edit Your event</a>    
+                        </td>
+                    <% end %>
+                </td>
+                <td><a href="events/info/<%= event.id %>">Show Event Details</a> |
+
+                </td>
+            </tr>
+            <% end %>
+        </table>
+    </div>
+    <br><br>
+    <div class='table-responsive'>
+        <table class='table'>
+            <tr>
+                <td>Name </td>
+                <td>Date </td>
+                <td>State </td>
+                <td>Host </td>
+                <td>Action</td>
+            </tr>
+            <% @eventfar.each do |event| %>
+            <tr>
+                <td><%= event.name.capitalize %></td>
+                <td><%= event.date %></td>
+                <td><%= event.state %></td>
+                <td><%= event.user.first_name%></td>
+                <td>
+
+                    <% if @events_attend.exists?(:id => event.id) == false %>
+                        <form action="/event/join/<%= event.id %>" method="post">
+                            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                            <input type="submit" value="Join" class="btn btn-default">
+                        </form>
+                    <% end %>
+                <!-- </td>
+                <td> -->
+                    <% if @events_attend.exists?(:id => event.id) == true %>
+                        <form action="/event/unjoin/<%= event.id %>" method="post">
+                            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                            <input type="submit" value="UnJoin" class="btn btn-default">
+                        </form>
+                    <% end %>
+                </td>
+                <td><a href="events/info/<%= event.id %>">Show Event Details</a> |
+
+                </td>
+            </tr>
+            <% end %>
+        </table>
+    </div>
+
+    <h2> Create A Event </h2>
+    <p><%= flash[:errors] %></p>
+    <div class ="form-group"><form action='/events/create' method='post'>
+        <input name="authenticity_token" value= "<%= form_authenticity_token %>" type="hidden">
+        <p><label for="name">Name:</label>
+        <input id="name" type="name" name="name" placeholder="Event Name"></p>
+        <p><label for="location">Location:</label>
+        <input id="city" type="city" name="city" placeholder="Your City">
+        <select id= "state" name="state" placeholder="Your State">
+            <option value="CA">CA</option>
+            <option value="WA">WA</option>
+        </select></p>
+        <p><label for="date">Date:<input type="date" data-date-format="YYYY/MM/DD" name="date"></p>
+        <button type="submit">CREAT!</button>
+        </form>
+    </div>
+
+    <br><br>
+    <form action="/logout" method="post" role="form">
+        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+        <button type="submit">Logout</button>
+    </form>
+
+</div>
